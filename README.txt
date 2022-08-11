@@ -8,7 +8,7 @@ Django Girls Tutorial
 * Linux Fedora Install
  # sudo dnf install python3.4
  # sudo dnf install python-django
- (pip install django
+ (pip install django django-url-framework
  python3 -m pip install --upgrade pip)
 
 
@@ -20,7 +20,10 @@ Django Girls Tutorial
  # python3 -m venv myvenv
 
 
-* DJANGO projekt
+
+
+
+* DJANGO project
 
  # django-admin startproject mysite .
 
@@ -47,12 +50,12 @@ Django Girls Tutorial
         }
     }
 
-* Adatbázis (SQLITE)
+* Database (SQLITE)
 
  # python manage.py migrate
 
 
-* Webszerver
+* Web server
 
  # python manage.py runserver
  (python manage.py runserver 0:8000)
@@ -143,7 +146,89 @@ Django Girls Tutorial
  Superuser created successfully.
 
 
+* DEPLOY (Guthub)
 
+ * Register to GitHUB.com
+ * Commandline:
+ $ git init
+ Initialized empty Git repository in ~/djangogirls/.git/
+ $ git config --global user.name "Your Name"
+ $ git config --global user.email you@example.com
+
+ # make file .gitignore
+
+ $ git status
+ On branch master           # On branch main
+
+ $ git add --all .
+ $ git commit -m "My Django Girls app, first commit"
+ [...]
+ 13 files changed, 200 insertions(+)
+ create mode 100644 .gitignore
+ [...]
+
+ $ git remote add origin https://github.com/<your-github-username>/my-first-blog.git
+ $ git push -u origin master           # git push -u origin main
+
+ Username for 'https://github.com': hjwp
+ Password for 'https://hjwp@github.com':
+ Counting objects: 6, done.
+ Writing objects: 100% (6/6), 200 bytes | 0 bytes/s, done.
+ Total 3 (delta 0), reused 0 (delta 0)
+ To https://github.com/hjwp/my-first-blog.git
+  * [new branch]      master -> master
+ Branch master set up to track remote branch master from origin.
+
+
+* DJANGO urls
+
+ * mysite/urls.py:
+ from django.contrib import admin
+ from django.urls import path
+ from django.urls import include
+ urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('blog.urls')),
+ ]
+
+ * blog/urls.py
+ from django.urls import re_path as url
+ from . import views
+
+
+ urlpatterns = [
+    url(r'^$', views.post_list, name='post_list'),
+ ]
+
+
+* DJANGO views
+
+ blog/views.py:
+
+ from django.shortcuts import render
+ # Create your views here.
+ def post_list(request):
+    return render(request, 'blog/post_list.html', {})
+
+
+
+* HTML
+
+ * mysite/settings.py
+
+ TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
+ * make dir 'templates'
+
+ templates/post_list.html file:
+
+ <html>
+    <p>Hi there!</p>
+    <p>It works!</p>
+ </html>
 
 
 
