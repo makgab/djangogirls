@@ -5,6 +5,9 @@ Django Girls Tutorial
 ---------------------
 
 
+* Tested: django 4.0.2, django-url-framework 0.5.3
+
+
 * Linux Fedora Install
  # sudo dnf install python3.4
  # sudo dnf install python-django
@@ -231,6 +234,80 @@ Django Girls Tutorial
  </html>
 
 
+
+* DJANGO ORM QuerySet
+
+ $ python manage.py shell
+
+ # https://tutorial.djangogirls.org/hu/django_orm/
+
+
+
+* Dinamic data in template
+
+ blog/models.py:
+
+ from django.conf import settings
+ from django.db import models
+ from django.utils import timezone
+
+
+ blog/views.py:
+ from django.shortcuts import render
+ from django.utils import timezone
+ from .models import Post
+
+ def post_list(request):
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'post_list.html', {'posts': posts})
+
+
+
+* DJANGO templete
+
+ templates/post_list.html file:
+
+ <div>
+    <h1><a href="/">Django Girls Blog</a></h1>
+ </div>
+
+ <hr>
+ {% for post in posts %}
+    <div>
+        <p>published: {{ post.published_date }}</p>
+        <h1><a href="">{{ post.title }}</a></h1>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+ {% endfor %}
+ <hr>
+
+
+ * CSS Bootstrap
+
+  templates/post_list.html file:
+
+  {% load static %}
+  <html>
+    <head>
+        <title>Django Girls blog</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Django Girls Blog</a></h1>
+        </div>
+
+        {% for post in posts %}
+            <div>
+                <p>published: {{ post.published_date }}</p>
+                <h1><a href="">{{ post.title }}</a></h1>
+                <p>{{ post.text|linebreaksbr }}</p>
+            </div>
+        {% endfor %}
+    </body>
+  </html>
 
 
 
