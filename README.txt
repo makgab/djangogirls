@@ -15,6 +15,8 @@ Django Girls Tutorial
  * django-url-framework 0.5.3
 
 
+
+
 * Linux Fedora Install
 ----------------------
 
@@ -22,6 +24,8 @@ Django Girls Tutorial
  $ sudo dnf install python-django
  (pip install django django-url-framework
  python3 -m pip install --upgrade pip)
+
+
 
 
 * Environment
@@ -50,7 +54,7 @@ Django Girls Tutorial
         __init__.py
 
 
-* mysite/settings.py:
+ * mysite/settings.py:
 
     TIME_ZONE = 'Europe/Budapest'
     STATIC_URL = '/static/'
@@ -64,10 +68,17 @@ Django Girls Tutorial
             }
         }
 
+
+
+
 * Database (SQLITE)
 -------------------
 
- $ python manage.py migrate
+ $ python manage.py makemigrations blog
+ $ python manage.py migrate blog
+ (python manage.py migrate)
+
+
 
 
 * Web server
@@ -102,7 +113,7 @@ Django Girls Tutorial
      ├── tests.py
      └── views.py
 
-* mysite/settings.py:
+ * mysite/settings.py:
 
     INSTALLED_APPS = [
         'django.contrib.admin',
@@ -113,6 +124,8 @@ Django Girls Tutorial
         'django.contrib.staticfiles',
         'blog',
     ]
+
+
 
 
 * Model
@@ -146,6 +159,8 @@ Django Girls Tutorial
  (python manage.py migrate)
 
 
+
+
 * DJANGO Admin
 --------------
 
@@ -169,7 +184,9 @@ Django Girls Tutorial
  Superuser created successfully.
 
 
-* DEPLOY (Guthub)
+
+
+* DEPLOY (Github)
 -----------------
 
  * Register to GitHUB.com
@@ -204,6 +221,8 @@ Django Girls Tutorial
  Branch master set up to track remote branch master from origin.
 
 
+
+
 * DJANGO urls
 -------------
 
@@ -227,6 +246,8 @@ Django Girls Tutorial
     urlpatterns = [
         url(r'^$', views.post_list, name='post_list'),
     ]
+
+
 
 
 * DJANGO views
@@ -262,12 +283,15 @@ Django Girls Tutorial
 
 
 
+
 * DJANGO ORM QuerySet
 ---------------------
 
  $ python manage.py shell
 
  # https://tutorial.djangogirls.org/hu/django_orm/
+
+
 
 
 
@@ -293,7 +317,8 @@ Django Girls Tutorial
 
 
 
-* DJANGO templete
+
+* DJANGO template
 -----------------
 
  * templates/post_list.html file:
@@ -311,6 +336,9 @@ Django Girls Tutorial
     </div>
     {% endfor %}
     <hr>
+
+
+
 
 
 * CSS Bootstrap
@@ -343,11 +371,13 @@ Django Girls Tutorial
 
 
 
+
+
 * DJANGO forms
 --------------
 
  * blog/forms.py:
- 
+
     from django import forms
     from .models import Post
 
@@ -504,6 +534,8 @@ Django Girls Tutorial
     else:
         form = PostForm(instance=post)
     return render(request, 'post_edit.html', {'form': form})
+
+
 
 
 
